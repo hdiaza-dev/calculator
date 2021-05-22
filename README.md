@@ -36,3 +36,13 @@ Testea una operacion básica con suboperators anidados y operaciones mezcladas (
 Testea el metodo de validacion del operator en la capa de servicios
 l
 
+Controller
+
+* whenOperationIsNotValidThenReturns400
+
+Testea que cuando llega al endpoint una peticion mal formada devuelva 400. 
+
+* whenOperationIsValidThenReturns200
+
+Testea que cuando llega al endpoint una peticion bien formada 200. 
+
