@@ -1,5 +1,7 @@
 package com.hdiaza.calculator.services;
 
+import java.util.Optional;
+
 import com.hdiaza.calculator.domain.Operator;
 
 // TODO: Auto-generated Javadoc
@@ -26,8 +28,18 @@ public class CalculatorService {
 	 * @return the boolean
 	 */
 	public Boolean isValidOperator(Operator operator) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean valuePresent = Optional.ofNullable(operator.getValue()).isPresent();
+		boolean operationPresent = Optional.ofNullable(operator.getOperation()).isPresent();
+		boolean operator1Present = Optional.ofNullable(operator.getOperator1()).isPresent();
+		boolean operator2Present = Optional.ofNullable(operator.getOperator2()).isPresent();
+		if (!valuePresent && operationPresent && operator1Present && operator2Present) {
+			return this.isValidOperator(Optional.of(operator.getOperator1()).get())
+					&& this.isValidOperator(Optional.of(operator.getOperator2()).get());
+		} else if (valuePresent && !operationPresent && !operator1Present && !operator2Present) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }
