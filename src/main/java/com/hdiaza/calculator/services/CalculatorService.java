@@ -3,21 +3,35 @@ package com.hdiaza.calculator.services;
 import java.util.Optional;
 
 import com.hdiaza.calculator.domain.Operator;
+import com.hdiaza.calculator.domain.Operator.Operation;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class CalculatorService.
  */
 public class CalculatorService {
 
 	/**
-	 * Gets the operationvalue.
+	 * Gets the operation value.
 	 *
 	 * @param operator the operator
-	 * @return the operationvalue
+	 * @return the operation value
 	 */
-	public Double getOperationvalue(Operator operator) {
-		// TODO Auto-generated method stub
+	public Double getOperationValue(Operator operator) {
+		Double operator1Value;
+		Double operator2Value;
+		if (Optional.ofNullable(operator.getValue()).isPresent()) {
+			return operator.getValue();
+		} else {
+			operator1Value = this.getOperationValue(operator.getOperator1());
+			operator2Value = this.getOperationValue(operator.getOperator2());
+		}
+
+		if (operator.getOperation().equals(Operation.ADD.name())) {
+			return operator1Value + operator2Value;
+		}
+		if (operator.getOperation().equals(Operation.SUB.name())) {
+			return operator1Value - operator2Value;
+		}
 		return null;
 	}
 

@@ -79,7 +79,7 @@ class CalculatorControllerTest {
 	void whenOperationIsValidThenReturns200() throws Exception {
 		Operator mockOperator = Operator.builder().build();
 		when(calculatorService.isValidOperator(mockOperator)).thenReturn(Boolean.TRUE);
-		when(calculatorService.getOperationvalue(mockOperator)).thenReturn(23d);
+		when(calculatorService.getOperationValue(mockOperator)).thenReturn(23d);
 		String writeValueAsString = objectMapper.writeValueAsString(mockOperator);
 		mockMvc.perform(post(OPERATE_ENDPOINT).contentType("application/json").content(writeValueAsString))
 				.andExpect(status().isOk());
