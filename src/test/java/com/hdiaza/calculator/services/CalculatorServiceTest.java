@@ -27,7 +27,7 @@ class CalculatorServiceTest {
 		Operator operator2 = Operator.builder().value(22d).build();
 		Operator operator = Operator.builder().operator1(operator1).operator2(operator2)
 				.operation(Operator.Operation.ADD.name()).build();
-		assertEquals(34d, calculatorService.getOperationValue(operator));
+		assertEquals(34d, calculatorService.getOperationValue(operator).getValue());
 	}
 
 	/**
@@ -39,7 +39,7 @@ class CalculatorServiceTest {
 		Operator operator2 = Operator.builder().value(22d).build();
 		Operator operation = Operator.builder().operator1(operator1).operator2(operator2)
 				.operation(Operator.Operation.SUB.name()).build();
-		assertEquals(-10d, calculatorService.getOperationValue(operation));
+		assertEquals(-10d, calculatorService.getOperationValue(operation).getValue());
 	}
 
 	/**
@@ -59,7 +59,7 @@ class CalculatorServiceTest {
 
 		Operator operator = Operator.builder().operator1(operator1).operator2(operator2)
 				.operation(Operator.Operation.SUB.name()).build();
-		assertEquals(211.37d, calculatorService.getOperationValue(operator));
+		assertEquals(211.37d, calculatorService.getOperationValue(operator).getValue());
 	}
 
 	/**

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.hdiaza.calculator.domain.Operator;
 import com.hdiaza.calculator.services.CalculatorService;
-import com.hdiaza.calculator.trace.CalculatorTracerService;
+import com.hdiaza.calculator.services.CalculatorTracerService;
 
 /**
  * The Class CalculatorController.
@@ -43,9 +43,9 @@ public class CalculatorController {
 			calculatorTracerService.trace("BadRequest de operator ".concat(operator.toString()));
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		Double operationValue = calculatorService.getOperationValue(operator);
-		calculatorTracerService.trace(operationValue);
-		return new ResponseEntity<>(operationValue, HttpStatus.OK);
+		Operator operation = calculatorService.getOperationValue(operator);
+		calculatorTracerService.trace(operation.getValue());
+		return new ResponseEntity<>(operation.getValue(), HttpStatus.OK);
 	}
 
 }

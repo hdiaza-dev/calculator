@@ -1,5 +1,7 @@
 package com.hdiaza.calculator.web;
 
+import static org.hamcrest.CoreMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -20,6 +22,7 @@ import org.springframework.web.context.WebApplicationContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hdiaza.calculator.domain.Operator;
 import com.hdiaza.calculator.services.CalculatorService;
+import com.hdiaza.calculator.services.CalculatorTracerService;
 
 /**
  * The Class CalculatorControllerTest.
@@ -39,6 +42,10 @@ class CalculatorControllerTest {
 	/** The calculator service. */
 	@MockBean
 	private CalculatorService calculatorService;
+
+	/** The calculator tracer service. */
+	@MockBean
+	private CalculatorTracerService calculatorTracerService;
 
 	/** The wac. */
 	@Autowired
@@ -79,7 +86,8 @@ class CalculatorControllerTest {
 	void whenOperationIsValidThenReturns200() throws Exception {
 		Operator mockOperator = Operator.builder().build();
 		when(calculatorService.isValidOperator(mockOperator)).thenReturn(Boolean.TRUE);
-		when(calculatorService.getOperationValue(mockOperator)).thenReturn(23d);
+		when(calculatorService.getOperationValue(mockOperator)).thenReturn(Operator.builder().build());
+		doNothing().when(calculatorTracerService).trace(any(Operator.class));
 		String writeValueAsString = objectMapper.writeValueAsString(mockOperator);
 		mockMvc.perform(post(OPERATE_ENDPOINT).contentType("application/json").content(writeValueAsString))
 				.andExpect(status().isOk());

@@ -4,7 +4,9 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.hdiaza.calculator.domain.Add;
 import com.hdiaza.calculator.domain.Operator;
+import com.hdiaza.calculator.domain.Sub;
 import com.hdiaza.calculator.domain.Operator.Operation;
 
 /**
@@ -19,23 +21,21 @@ public class CalculatorService {
 	 * @param operator the operator
 	 * @return the operation value
 	 */
-	public Double getOperationValue(Operator operator) {
-		Double operator1Value;
-		Double operator2Value;
-		if (Optional.ofNullable(operator.getValue()).isPresent()) {
-			return operator.getValue();
-		} else {
-			operator1Value = this.getOperationValue(operator.getOperator1());
-			operator2Value = this.getOperationValue(operator.getOperator2());
-		}
+	public Operator getOperationValue(Operator operator) {
 
+		if (Optional.ofNullable(operator.getValue()).isPresent()) {
+			return operator;
+		} else {
+			operator.setOperator1(this.getOperationValue(operator.getOperator1()));
+			operator.setOperator2(this.getOperationValue(operator.getOperator2()));
+		}
 		if (operator.getOperation().equals(Operation.ADD.name())) {
-			return operator1Value + operator2Value;
+			return new Add().calculate(operator);
 		}
 		if (operator.getOperation().equals(Operation.SUB.name())) {
-			return operator1Value - operator2Value;
+			return new Sub().calculate(operator);
 		}
-		return null;
+		return Operator.builder().build();
 	}
 
 	/**
