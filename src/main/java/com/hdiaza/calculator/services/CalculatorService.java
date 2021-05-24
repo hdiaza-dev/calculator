@@ -2,12 +2,15 @@ package com.hdiaza.calculator.services;
 
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.hdiaza.calculator.domain.Operator;
 import com.hdiaza.calculator.domain.Operator.Operation;
 
 /**
  * The Class CalculatorService.
  */
+@Service
 public class CalculatorService {
 
 	/**

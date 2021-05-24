@@ -1,4 +1,5 @@
-### Calculator
+Calculator
+--------------------
 
 
 He decidido crear un objeto Operator que contiene las siguientes propiedades:
@@ -45,4 +46,20 @@ Testea que cuando llega al endpoint una peticion mal formada devuelva 400.
 * whenOperationIsValidThenReturns200
 
 Testea que cuando llega al endpoint una peticion bien formada 200. 
+
+
+Generacion de jar y ejecución
+--------------------
+
+Para generar el jar desde la carpeta del proyecto ejecutar comando
+
+mvn clean package
+
+Para ejecutar jar
+
+java -jar 
+
+
+
+
 
